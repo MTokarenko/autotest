@@ -1,0 +1,17 @@
+group 'ru.work.tinkoff'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.codeborne', name: 'selenide', version: '4.12.1'
+
+    testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
+
+}
