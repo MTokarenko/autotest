@@ -3,7 +3,9 @@ package ru.work.tinkoff.additional;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 import static java.lang.String.format;
 
@@ -42,5 +44,6 @@ public class Task2 {
         }
 
         values.set(columns.indexOf(column), value);
+        System.out.println(values);
     }
 }
