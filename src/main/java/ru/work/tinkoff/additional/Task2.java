@@ -45,11 +45,7 @@ public class Task2 {
         }
 
         values.set(columns.indexOf(column), value);
-        String fin = "";
-        for (String ch : values) {
-            fin += ch + ",";
-        }
-        lines.set(1, fin.substring(0, fin.length() - 1));
+        String fin = String.join(",", values);
 
         FileWriter writer = null;
         try {
