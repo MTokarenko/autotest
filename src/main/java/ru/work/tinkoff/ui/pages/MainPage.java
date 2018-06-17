@@ -19,7 +19,7 @@ public class MainPage {
         logo.shouldBe(Condition.visible);
     }
 
-    MainPage openMainPage() {
+    public MainPage openMainPage() {
         getWebDriver().get(getProperty("web.url"));
         logo.shouldBe(visible);
         return this;

@@ -45,14 +45,14 @@ public class Task2 {
         }
 
         values.set(columns.indexOf(column), value);
-        String fin = String.join(",", values);
+        lines.set(1, String.join(",", values));
 
+        write(lines, "output.txt");
+    }
+
+    private void write(List<String> lines, String path) throws IOException {
         FileWriter writer = null;
-        try {
-            writer = new FileWriter("output.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            writer = new FileWriter(path);
         for (String line : lines) {
             writer.write(line + System.getProperty("line.separator"));
         }
