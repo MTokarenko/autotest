@@ -7,7 +7,7 @@ import ru.work.tinkoff.ui.pages.PageManager;
 
 public class TestBase {
 
-    protected final PageManager pages = new PageManager(BrowserType.FIREFOX);
+    protected final PageManager pages = new PageManager(BrowserType.CHROME);
 
     @BeforeClass
     void setUp() {

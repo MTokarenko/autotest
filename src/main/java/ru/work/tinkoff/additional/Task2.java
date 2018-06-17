@@ -2,8 +2,11 @@ package ru.work.tinkoff.additional;
 
 import org.apache.commons.io.IOUtils;
 
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 import static java.lang.String.format;
 
@@ -21,7 +24,7 @@ public class Task2 {
         new Task2().run("3", "value");
     }
 
-    private void run(String column, String value) {
+    private void run(String column, String value) throws IOException {
         if (value == null || value.equals("")) {
             value = " ";
         }
@@ -30,8 +33,8 @@ public class Task2 {
             throw new RuntimeException(format("Некорректный файл - %s.\nФайл должен состоять из двух строк", FILE_NAME));
         }
 
-        List columns = Arrays.asList(lines.get(0).split(","));
-        List values = Arrays.asList(lines.get(1).split(","));
+        List<String> columns = Arrays.asList(lines.get(0).split(","));
+        List<String> values = Arrays.asList(lines.get(1).split(","));
 
         if (columns.size() != values.size()) {
             throw new RuntimeException("Не совпадает количество колонок и их значений в файле");
@@ -42,5 +45,21 @@ public class Task2 {
         }
 
         values.set(columns.indexOf(column), value);
+        String fin = "";
+        for (String ch : values) {
+            fin += ch + ",";
+        }
+        lines.set(1, fin.substring(0, fin.length() - 1));
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("output.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (String line : lines) {
+            writer.write(line + System.getProperty("line.separator"));
+        }
+        writer.close();
     }
 }
