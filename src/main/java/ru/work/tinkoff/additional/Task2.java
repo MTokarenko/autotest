@@ -44,6 +44,7 @@ public class Task2 {
         }
 
         values.set(columns.indexOf(column), value);
-        System.out.println(values);
+        System.out.println(String.join(",", values));
+
     }
 }
