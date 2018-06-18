@@ -3,14 +3,13 @@ package ru.work.tinkoff.ui.pages.payments;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.*;
 import static java.lang.String.format;
+import static ru.work.tinkoff.Utils._$;
 
 public class PaymentsPage {
 
-    SelenideElement search = $x(".//input[@data-qa-file='SearchInput']");
+    SelenideElement search = _$("SearchInput");
     SelenideElement region = $x(".//span[@data-qa-file='PaymentsCatalogHeader']");
 
     PaymentsPage() {
@@ -25,7 +24,7 @@ public class PaymentsPage {
     }
 
     public void search(String value) {
-        search.setValue(value).pressEnter();
+        search.sendKeys(value);
     }
 
 

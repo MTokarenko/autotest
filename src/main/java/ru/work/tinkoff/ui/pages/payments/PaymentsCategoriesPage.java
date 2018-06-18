@@ -8,14 +8,14 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static java.lang.String.format;
+import static ru.work.tinkoff.Utils._$;
 
 public class PaymentsCategoriesPage {
 
-    private SelenideElement region = $x(".//div[@data-qa-file='PaymentsCatalogHeader']" +
-            "//span[@data-qa-file='Link']");
+    private SelenideElement region = _$("PaymentsCatalogHeader", "Link");
 
     PaymentsCategoriesPage() {
-        $x(".//div[@data-qa-file='StatelessInput']").shouldBe(exist);
+        _$("StatelessInput").shouldBe(exist);
     }
 
     public String getCurrentRegion() {

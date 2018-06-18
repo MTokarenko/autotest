@@ -1,8 +1,5 @@
 package ru.work.tinkoff.additional;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,10 +11,7 @@ public class Task5 {
         checkExtraKeys(ref, bd);
     }
 
-    public static void checkExtraKeys(List<String> reference, List<String> database) {
-        if (reference.equals(database)) {
-            System.out.println("success!");
-        }
+    private static void checkExtraKeys(List<String> reference, List<String> database) {
         List<String> a = new ArrayList<>(database);
         a.removeAll(reference);
         System.out.println(a);
@@ -26,10 +20,6 @@ public class Task5 {
             b.removeAll(database);
             System.out.println(b);
         }
-
-    }
-
-    public void checkValidKeys(List<String> reference, List<String> database) {
 
     }
 }

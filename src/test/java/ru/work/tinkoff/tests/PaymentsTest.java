@@ -1,6 +1,6 @@
 package ru.work.tinkoff.tests;
 
-import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import ru.work.tinkoff.ui.pages.MainPage;
@@ -9,13 +9,14 @@ import ru.work.tinkoff.ui.pages.payments.PaymentsCategoriesPage;
 import ru.work.tinkoff.ui.pages.payments.PaymentsPage;
 import ru.work.tinkoff.ui.pages.payments.SupplierPaymentPage;
 
+import java.util.stream.Collectors;
+
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.page;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
+import static ru.work.tinkoff.Utils._$;
 
 public class PaymentsTest extends TestBase {
 
@@ -35,7 +36,7 @@ public class PaymentsTest extends TestBase {
         SupplierPaymentPage supplier = page(SupplierPaymentPage.class);
         supplier.openPaymentTab();
         supplier.getPayerCode().$("input").shouldBe(visible).sendKeys(Keys.ENTER);
-        $x(".//div[@data-qa-file='UIFormRowError']").shouldBe(exist);
+        _$("UIFormRowError").shouldBe(exist);
 
         assertTrue(supplier.hasErrorMsg(supplier.getPayerCode(), supplier.REQUIRED_FIELD_MSG));
         assertTrue(supplier.hasErrorMsg(supplier.getPeriod(), supplier.REQUIRED_FIELD_MSG));
@@ -68,6 +69,18 @@ public class PaymentsTest extends TestBase {
                 .openSecondMenu(PaymentsPage.class, SecondMenu.PAYMENTS);
         page(PaymentsCategoriesPage.class).setRegion("г. Москва");
         page(PaymentsPage.class).search(savedSupplier);
+        _$("SuggestBlock").shouldBe(exist);
+        assertEquals($$x(".//div[@data-qa-file='GridColumn']//div[@data-qa-file='Text']").get(0).getText(), savedSupplier);
+        _$("GridColumn", "Text").click();
+        supplier.openPaymentTab();
+
+        page(MainPage.class)
+                .openSecondMenu(PaymentsPage.class, SecondMenu.PAYMENTS)
+                .openPayment("ЖКХ")
+                .setRegion("г. Санкт-Петербург");
+
+        assertFalse(page(PaymentsCategoriesPage.class).getSuppliers().stream().map(SelenideElement::getText)
+                .collect(Collectors.toList()).contains(savedSupplier));
 
     }
 }
